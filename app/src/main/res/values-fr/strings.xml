@@ -329,6 +329,8 @@
     <string name="standalone_not_native">Pas une app Android Auto · usage à l\'arrêt</string>
     <string name="standalone_starting">Démarrage…</string>
     <string name="standalone_paused_driving">Suspendu pendant la conduite.</string>
+    <string name="standalone_driving_title">Aussi en roulant</string>
+    <string name="standalone_driving_subtitle">Garde cette app à l\'écran quand la voiture roule. Réservé aux apps de navigation ou d\'alerte radar : tu restes responsable de garder les yeux sur la route.</string>
     <!-- browser: the in-car WebView browser -->
     <string name="browser_app_label">Navigateur</string>
     <string name="browser_app_row_subtitle">Un navigateur web sur l\'écran de la voiture, pour quand vous êtes garé</string>

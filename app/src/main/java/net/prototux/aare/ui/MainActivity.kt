@@ -987,6 +987,7 @@ private fun AppGroup(title: String) {
 private fun StandaloneAppsSection(settings: Settings, ctx: android.content.Context) {
     var enabled by remember { mutableStateOf(settings.standaloneApps) }
     var allowed by remember { mutableStateOf(settings.standaloneAppPackages) }
+    var whileDriving by remember { mutableStateOf(settings.standaloneDrivingPackages) }
     val available = remember { AppLauncher.available(ctx) }
     Section(stringResource(R.string.standalone_section_title)) {
         Text(stringResource(R.string.standalone_section_warning), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error)
@@ -1011,6 +1012,17 @@ private fun StandaloneAppsSection(settings: Settings, ctx: android.content.Conte
                     AppRow(icon, label, pkg, pkg in allowed) { on ->
                         allowed = if (on) allowed + pkg else allowed - pkg
                         settings.standaloneAppPackages = allowed
+                        if (!on && pkg in whileDriving) {
+                            whileDriving = whileDriving - pkg
+                            settings.standaloneDrivingPackages = whileDriving
+                        }
+                    }
+                    // Opt-in per app: keep it on screen while driving (navigation, speed-camera warner…).
+                    if (pkg in allowed) {
+                        Toggle(stringResource(R.string.standalone_driving_title), stringResource(R.string.standalone_driving_subtitle), pkg in whileDriving) { on ->
+                            whileDriving = if (on) whileDriving + pkg else whileDriving - pkg
+                            settings.standaloneDrivingPackages = whileDriving
+                        }
                     }
                 }
             }

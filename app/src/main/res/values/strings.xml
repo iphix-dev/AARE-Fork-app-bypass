@@ -284,6 +284,8 @@
     <string name="standalone_not_native">Not an Android Auto app · parked use</string>
     <string name="standalone_starting">Starting…</string>
     <string name="standalone_paused_driving">Paused while driving.</string>
+    <string name="standalone_driving_title">Also while driving</string>
+    <string name="standalone_driving_subtitle">Keep this app on screen while the car is moving. Only for navigation or speed-camera apps: it is your responsibility to keep your eyes on the road.</string>
     <!-- browser: the in-car WebView browser -->
     <string name="browser_app_label">Browser</string>
     <string name="browser_app_row_subtitle">A web browser on the car screen, for when you\'re parked</string>

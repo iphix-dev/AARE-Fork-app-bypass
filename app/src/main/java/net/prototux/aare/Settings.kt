@@ -179,6 +179,16 @@ class Settings(context: Context) {
     var standaloneAppPackages: Set<String>
         get() = prefs.getStringSet("standalone_app_pkgs", emptySet()) ?: emptySet()
         set(v) = prefs.edit { putStringSet("standalone_app_pkgs", HashSet(v)) }
+
+    /**
+     * The subset of [standaloneAppPackages] the user explicitly lets stay on screen while the car
+     * reports driving (a navigation or speed-camera app, say). Empty by default: every standalone
+     * app is paused while driving unless it is listed here.
+     */
+    var standaloneDrivingPackages: Set<String>
+        get() = prefs.getStringSet("standalone_driving_pkgs", emptySet()) ?: emptySet()
+        set(v) = prefs.edit { putStringSet("standalone_driving_pkgs", HashSet(v)) }
+
     /** Show a web browser (a WebView) on the car screen. Off by default; paused while driving. */
     var browser: Boolean
         get() = prefs.getBoolean("browser", false)

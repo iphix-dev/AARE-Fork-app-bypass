@@ -40,11 +40,18 @@ import net.prototux.aare.media.Placeholder
  * [TextureView] gives its surface to the privileged [AppLauncher], which puts a virtual display
  * there, launches [packageName] on it, and receives the car's touches we forward.
  *
- * Not an Android Auto app, so — like the phone-screen mirror — it is paused while driving. The
+ * Not an Android Auto app, so — like the phone-screen mirror — it is paused while driving, unless
+ * the user listed [packageName] as allowed while driving ([drivingAllowed], off by default). The
  * privileged core is device-tested; here it just wires the surface, touches and lifecycle.
  */
 @Composable
-internal fun StandaloneAppScreen(runtime: CarRuntime, driving: Boolean, packageName: String, modifier: Modifier) {
+internal fun StandaloneAppScreen(
+    runtime: CarRuntime,
+    driving: Boolean,
+    packageName: String,
+    modifier: Modifier,
+    drivingAllowed: Boolean = false,
+) {
     val context = LocalContext.current
     val launcher = remember(packageName) { AppLauncher(context) }
     var started by remember(packageName) { mutableStateOf(false) }
@@ -65,7 +72,7 @@ internal fun StandaloneAppScreen(runtime: CarRuntime, driving: Boolean, packageN
     }
 
     Box(modifier.background(Color.Black)) {
-        if (!driving) {
+        if (!driving || drivingAllowed) {
             androidx.compose.ui.viewinterop.AndroidView(
                 factory = { ctx ->
                     TextureView(ctx).apply {
