@@ -331,6 +331,18 @@
     <string name="standalone_paused_driving">Suspendu pendant la conduite.</string>
     <string name="standalone_driving_title">Aussi en roulant</string>
     <string name="standalone_driving_subtitle">Garde cette app à l\'écran quand la voiture roule. Réservé aux apps de navigation ou d\'alerte radar : tu restes responsable de garder les yeux sur la route.</string>
+    <!-- playlists: pinned playlists in the car -->
+    <string name="playlists_app_label">Playlists</string>
+    <string name="playlists_section_title">Playlists dans la voiture</string>
+    <string name="playlists_section_hint">Épingle une playlist en collant son lien Spotify ou Deezer. Une app « Playlists » apparaît alors sur l\'écran de la voiture.</string>
+    <string name="playlists_name_label">Nom</string>
+    <string name="playlists_link_label">Lien (https://open.spotify.com/playlist/… ou spotify:playlist:…)</string>
+    <string name="playlists_add">Ajouter</string>
+    <string name="playlists_remove">Retirer</string>
+    <string name="playlists_status_requested">Lecture demandée :</string>
+    <string name="playlists_status_opened">Ouverte dans son app (appuie peut-être sur lecture) :</string>
+    <string name="playlists_status_failed">Impossible d\'ouvrir :</string>
+    <string name="playlists_paused_driving">Les playlists sont masquées en roulant. Utilise les boutons du haut pour contrôler la lecture.</string>
     <!-- browser: the in-car WebView browser -->
     <string name="browser_app_label">Navigateur</string>
     <string name="browser_app_row_subtitle">Un navigateur web sur l\'écran de la voiture, pour quand vous êtes garé</string>

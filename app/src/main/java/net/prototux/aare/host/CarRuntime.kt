@@ -54,6 +54,8 @@ import net.prototux.aare.ui.car.NotificationsScreen
 import net.prototux.aare.ui.car.NowPlaying
 import net.prototux.aare.ui.car.CarDataScreen
 import net.prototux.aare.ui.car.PhoneScreen
+import net.prototux.aare.playlists.Playlists
+import net.prototux.aare.ui.car.PlaylistsScreen
 import net.prototux.aare.ui.car.StandaloneAppScreen
 import net.prototux.aare.ui.theme.CarTheme
 import net.prototux.aare.ui.theme.LocalCarDimens
@@ -411,6 +413,9 @@ class CarRuntime(
                 entries += CarAppEntry(standaloneId(pkg), pkg, label, icon, CarAppKind.STANDALONE)
             }
         }
+        if (Playlists.parse(settings.playlistsRaw).isNotEmpty()) {
+            entries += CarAppEntry(PLAYLISTS_ID, context.packageName, context.getString(R.string.playlists_app_label), builtinIcon(R.drawable.ic_car_playlists), CarAppKind.PLAYLISTS)
+        }
         if (settings.browser) {
             entries += CarAppEntry(BROWSER_ID, context.packageName, context.getString(R.string.browser_app_label), builtinIcon(R.drawable.ic_car_browser), CarAppKind.BROWSER)
         }
@@ -690,6 +695,7 @@ class CarRuntime(
                             CarAppKind.PHONE_SCREEN -> MirrorScreen(this, ui.drivingRestricted, mod)
                             CarAppKind.STANDALONE -> StandaloneAppScreen(this, ui.drivingRestricted, app.packageName, mod,
                                 drivingAllowed = app.packageName in settings.standaloneDrivingPackages)
+                            CarAppKind.PLAYLISTS -> PlaylistsScreen(this, ui.drivingRestricted, mod)
                             CarAppKind.BROWSER -> BrowserScreen(this, ui.drivingRestricted, settings.browserUrl, mod)
                             CarAppKind.CAR_DATA -> CarDataScreen(mod)
                             CarAppKind.PHONE -> PhoneScreen(this, mod)
@@ -722,6 +728,7 @@ class CarRuntime(
         fun standaloneId(pkg: String) = "standalone:$pkg"
         const val PHONE_SCREEN_ID = "phone-screen"
         const val BROWSER_ID = "browser"
+        const val PLAYLISTS_ID = "playlists"
         const val CAR_DATA_ID = "car-data"
         const val PHONE_ID = "phone"
         const val SETTINGS_ID = "car-settings"

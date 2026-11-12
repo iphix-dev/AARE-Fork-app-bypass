@@ -286,6 +286,18 @@
     <string name="standalone_paused_driving">Paused while driving.</string>
     <string name="standalone_driving_title">Also while driving</string>
     <string name="standalone_driving_subtitle">Keep this app on screen while the car is moving. Only for navigation or speed-camera apps: it is your responsibility to keep your eyes on the road.</string>
+    <!-- playlists: pinned playlists in the car -->
+    <string name="playlists_app_label">Playlists</string>
+    <string name="playlists_section_title">Playlists in the car</string>
+    <string name="playlists_section_hint">Pin a playlist by pasting its Spotify or Deezer link. A "Playlists" app then appears on the car screen.</string>
+    <string name="playlists_name_label">Name</string>
+    <string name="playlists_link_label">Link (https://open.spotify.com/playlist/… or spotify:playlist:…)</string>
+    <string name="playlists_add">Add</string>
+    <string name="playlists_remove">Remove</string>
+    <string name="playlists_status_requested">Asked to play:</string>
+    <string name="playlists_status_opened">Opened in its app (you may need to press play):</string>
+    <string name="playlists_status_failed">Could not open:</string>
+    <string name="playlists_paused_driving">Playlists are hidden while driving. Use the buttons above to control playback.</string>
     <!-- browser: the in-car WebView browser -->
     <string name="browser_app_label">Browser</string>
     <string name="browser_app_row_subtitle">A web browser on the car screen, for when you\'re parked</string>

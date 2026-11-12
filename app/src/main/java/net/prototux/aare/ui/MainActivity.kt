@@ -134,6 +134,8 @@ import net.prototux.aare.host.UnsupportedCarApp
 import net.prototux.aare.mirror.MirrorTouchService
 import androidx.core.graphics.drawable.toBitmap
 import net.prototux.aare.launch.AppLauncher
+import net.prototux.aare.playlists.PlaylistShortcut
+import net.prototux.aare.playlists.Playlists
 import net.prototux.aare.car.CarData
 import net.prototux.aare.service.ProjectionService
 import net.prototux.aare.ui.car.WALLPAPER_NAMES
@@ -921,6 +923,7 @@ private fun AppsCard(settings: Settings) {
         }
         if (l != null) AppOrder(settings, l, hidden, phoneScreen, browser)
         StandaloneAppsSection(settings, ctx)
+        PlaylistsSection(settings)
         val unsupported by produceState(emptyList<UnsupportedCarApp>(), l) {
             if (l != null) value = withContext(Dispatchers.IO) { AndroidAutoApps.unsupported(ctx, l.carApps.map { it.packageName }) }
         }
@@ -980,6 +983,40 @@ private fun AppOrder(settings: Settings, l: LauncherLists, hidden: Set<String>, 
 @Composable
 private fun AppGroup(title: String) {
     Text(title, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary, modifier = Modifier.padding(top = 16.dp, bottom = 4.dp))
+}
+
+/** Pin playlists (a name and a Spotify/Deezer link) for the car's "Playlists" app. */
+@Composable
+private fun PlaylistsSection(settings: Settings) {
+    var items by remember { mutableStateOf(Playlists.parse(settings.playlistsRaw)) }
+    var name by remember { mutableStateOf("") }
+    var link by remember { mutableStateOf("") }
+    fun save(list: List<PlaylistShortcut>) {
+        items = list
+        settings.playlistsRaw = Playlists.serialize(list)
+    }
+    Section(stringResource(R.string.playlists_section_title)) {
+        Text(stringResource(R.string.playlists_section_hint), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        items.forEachIndexed { i, p ->
+            Row(Modifier.fillMaxWidth().padding(vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+                Column(Modifier.weight(1f)) {
+                    Text(p.name, style = MaterialTheme.typography.bodyLarge)
+                    Text(p.uri, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 1)
+                }
+                TextButton(onClick = { save(items.filterIndexed { j, _ -> j != i }) }) { Text(stringResource(R.string.playlists_remove)) }
+            }
+        }
+        OutlinedTextField(value = name, onValueChange = { name = it }, modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
+            label = { Text(stringResource(R.string.playlists_name_label)) }, singleLine = true)
+        OutlinedTextField(value = link, onValueChange = { link = it }, modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
+            label = { Text(stringResource(R.string.playlists_link_label)) }, singleLine = true)
+        TextButton(onClick = {
+            if (name.isNotBlank() && link.isNotBlank()) {
+                save(items + PlaylistShortcut(name.trim(), Playlists.normalize(link)))
+                name = ""; link = ""
+            }
+        }) { Text(stringResource(R.string.playlists_add)) }
+    }
 }
 
 /** Opt-in: launch ordinary phone apps on the car screen (parked only; needs root or Shizuku). */

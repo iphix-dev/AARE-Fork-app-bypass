@@ -189,6 +189,11 @@ class Settings(context: Context) {
         get() = prefs.getStringSet("standalone_driving_pkgs", emptySet()) ?: emptySet()
         set(v) = prefs.edit { putStringSet("standalone_driving_pkgs", HashSet(v)) }
 
+    /** Pinned playlists for the car's "Playlists" app, one `name<TAB>uri` per line (see Playlists). */
+    var playlistsRaw: String
+        get() = prefs.getString("playlists", "") ?: ""
+        set(v) = prefs.edit { putString("playlists", v) }
+
     /** Show a web browser (a WebView) on the car screen. Off by default; paused while driving. */
     var browser: Boolean
         get() = prefs.getBoolean("browser", false)
